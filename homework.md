@@ -36,6 +36,13 @@ CREATE TABLE processed_events (
 )
 ```
 
+Note: I rerun this command again, because once the job started the table was deleted. 
+I needed also to run :  Topic Existence and Auto-Creation
+```bash
+docker exec -it redpanda-1 rpk topic produce test-topic --format json
+````
+
+Given that we are runnig latest in our configuration, we need to ruun the producer script right after starting the job.
 
 ## Question 1. Connecting to the Kafka server
 
