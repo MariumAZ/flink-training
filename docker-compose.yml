@@ -48,6 +48,7 @@ services:
       - "6123"
     ports:
       - "8081:8081"
+      - "6123:6123"
     volumes:
       - ./:/opt/flink/usrlib
       - ./keys/:/var/private/ssl/
