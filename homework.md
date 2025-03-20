@@ -36,6 +36,16 @@ CREATE TABLE processed_events (
 )
 ```
 
+```sql
+CREATE TABLE processed_events_aggregated (
+     test_data INTEGER,
+    event_hour TIMESTAMP,
+    num_hits INTEGER 
+);
+ALTER TABLE processed_events_aggregated
+ADD CONSTRAINT unique_event PRIMARY KEY (event_hour, test_data);
+```
+
 Note: I rerun this command again, because once the job started the table was deleted. 
 I needed also to run :  Topic Existence and Auto-Creation
 ```bash

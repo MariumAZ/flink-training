@@ -35,8 +35,8 @@ def create_events_source_kafka(t_env):
             'connector' = 'kafka',
             'properties.bootstrap.servers' = 'redpanda-1:29092',
             'topic' = 'test-topic',
-            'scan.startup.mode' = 'earliest-offset',
-            'properties.auto.offset.reset' = 'earliest',
+            'scan.startup.mode' = 'latest-offset',
+            'properties.auto.offset.reset' = 'latest',
             'format' = 'json'
         );
         """
@@ -48,7 +48,7 @@ def log_aggregation():
     # Set up the execution environment
     env = StreamExecutionEnvironment.get_execution_environment()
     env.enable_checkpointing(10 * 1000)
-    env.set_parallelism(3)
+    env.set_parallelism(1)
 
     # Set up the table environment
     settings = EnvironmentSettings.new_instance().in_streaming_mode().build()
@@ -76,7 +76,7 @@ def log_aggregation():
             test_data,
             COUNT(*) AS num_hits
         FROM TABLE(
-            TUMBLE(TABLE {source_table}, DESCRIPTOR(event_watermark), INTERVAL '1' MINUTE)
+            TUMBLE(TABLE {source_table}, DESCRIPTOR(event_watermark), INTERVAL '15' SECOND)
         )
         GROUP BY window_start, test_data;
         
