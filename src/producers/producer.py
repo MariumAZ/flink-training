@@ -15,7 +15,7 @@ t0 = time.time()
 
 topic_name = 'test-topic'
 
-for i in range(10, 1000):
+for i in range(10, 2000):
     message = {'test_data': i, 'event_timestamp': time.time() * 1000}
     producer.send(topic_name, value=message)
     print(f"Sent: {message}")
